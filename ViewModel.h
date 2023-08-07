@@ -29,13 +29,14 @@ public:
 
 	//HashTable* hashTable = nullptr;
 	void readData(string dir, int hashTableSize);
-	/*vector<Data> FindByVacancy(string vacancy, int& compareCnt);
-	vector<Data> FindBySpeciality(string speciality, int& compareCnt);
-	vector<Data> FindByCompany(string company, int& compareCnt);*/
+	vector<Data*> FindByBankName(string vacancy, int& compareCnt);
+	vector<Data*> FindByInterestRate(int interestRate, int& compareCnt);
+	vector<Data*> FindByMaturityTime(int maturityTime, int& compareCnt);
+	vector<Data*> FindBySum(int sum, int& compareCnt);
 private:
 	string durationToString(int duration);
 	string interestRateToString(int interestRate);
 	string sumToString(int sum);
-	//vector<Data> listToVector(ListNode list);
+	vector<Data*> listToVector(SLLT list);
 };
 

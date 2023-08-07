@@ -34,7 +34,7 @@ namespace Credit {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::ListView^ ListView;
+	public: System::Windows::Forms::ListView^ ListView;
 	protected:
 	private: System::Windows::Forms::ColumnHeader^ ColumnPassport;
 	private: System::Windows::Forms::ColumnHeader^ ColumnBankName;
@@ -88,7 +88,6 @@ namespace Credit {
 			this->ListView->TabIndex = 4;
 			this->ListView->UseCompatibleStateImageBehavior = false;
 			this->ListView->View = System::Windows::Forms::View::Details;
-			this->ListView->Visible = false;
 			// 
 			// ColumnPassport
 			// 

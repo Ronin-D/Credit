@@ -1,6 +1,9 @@
 #include "MainWindow.h"
 #include <msclr\marshal_cppstd.h>
 #include"ViewModel.h"
+#include"FilteredWindow.h"
+#include"AVLDebugWindow.h"
+#include"HTDebugWindow.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -39,21 +42,134 @@ System::Void Credit::MainWindow::GlobalFind_Click(System::Object^ sender, System
 
 System::Void Credit::MainWindow::BankNameFind_Click(System::Object^ sender, System::EventArgs^ e)
 {
+
+	if (BankFindline->Text == "")
+	{
+		return System::Void();
+	}
+	int compareCnt = 1;
+	msclr::interop::marshal_context context;
+	string bankName= context.marshal_as<std::string>(BankFindline->Text);
+	FilteredWindow^ fw = gcnew FilteredWindow();
+	auto foundItems = viewModel.FindByBankName(bankName, compareCnt);
+	if (foundItems.size() != 0)
+	{
+		for (size_t i = 0; i < foundItems.size(); i++)
+		{
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(foundItems[i]->series.ToString() + " " + foundItems[i]->number.ToString()));
+			lvi->SubItems->Add(gcnew String(foundItems[i]->bankName.c_str()));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->interestRate.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->duration.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->sum.ToString())));
+			fw->ListView->Items->Add(lvi);
+		}
+		fw->Text = gcnew String("количество сравнений: " + compareCnt.ToString());
+		fw->ShowDialog();
+	}
+	else {
+		MessageBox::Show("Запись не найдена", "Уведомление");
+	}
+
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::InterestRateFind_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (InterestRateFindline->Text == "")
+	{
+		return System::Void();
+	}
+	int compareCnt = 1;
+	msclr::interop::marshal_context context;
+	int interestRate = stoi(context.marshal_as<std::string>(InterestRateFindline->Text));
+	FilteredWindow^ fw = gcnew FilteredWindow();
+	auto foundItems = viewModel.FindByInterestRate(interestRate, compareCnt);
+	if (foundItems.size() != 0)
+	{
+		for (size_t i = 0; i < foundItems.size(); i++)
+		{
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(foundItems[i]->series.ToString() + " " + foundItems[i]->number.ToString()));
+			lvi->SubItems->Add(gcnew String(foundItems[i]->bankName.c_str()));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->interestRate.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->duration.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->sum.ToString())));
+			fw->ListView->Items->Add(lvi);
+		}
+		fw->Text = gcnew String("количество сравнений: " + compareCnt.ToString());
+		fw->ShowDialog();
+	}
+	else {
+		MessageBox::Show("Запись не найдена", "Уведомление");
+	}
+
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::MaturityTimeFind_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (MaturityRateFindLine->Text == "")
+	{
+		return System::Void();
+	}
+	int compareCnt = 1;
+	msclr::interop::marshal_context context;
+	int duration = stoi(context.marshal_as<std::string>(MaturityRateFindLine->Text));
+	FilteredWindow^ fw = gcnew FilteredWindow();
+	auto foundItems = viewModel.FindByMaturityTime(duration, compareCnt);
+	if (foundItems.size() != 0)
+	{
+		for (size_t i = 0; i < foundItems.size(); i++)
+		{
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(foundItems[i]->series.ToString() + " " + foundItems[i]->number.ToString()));
+			lvi->SubItems->Add(gcnew String(foundItems[i]->bankName.c_str()));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->interestRate.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->duration.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->sum.ToString())));
+			fw->ListView->Items->Add(lvi);
+		}
+		fw->Text = gcnew String("количество сравнений: " + compareCnt.ToString());
+		fw->ShowDialog();
+	}
+	else {
+		MessageBox::Show("Запись не найдена", "Уведомление");
+	}
+
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::SumFind_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (SumFindLine->Text == "")
+	{
+		return System::Void();
+	}
+	int compareCnt = 1;
+	msclr::interop::marshal_context context;
+	int sum = stoi(context.marshal_as<std::string>(SumFindLine->Text));
+	FilteredWindow^ fw = gcnew FilteredWindow();
+	auto foundItems = viewModel.FindBySum(sum, compareCnt);
+	if (foundItems.size() != 0)
+	{
+		for (size_t i = 0; i < foundItems.size(); i++)
+		{
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(foundItems[i]->series.ToString() + " " + foundItems[i]->number.ToString()));
+			lvi->SubItems->Add(gcnew String(foundItems[i]->bankName.c_str()));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->interestRate.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->duration.ToString())));
+			lvi->SubItems->Add(gcnew String((foundItems[i]->sum.ToString())));
+			fw->ListView->Items->Add(lvi);
+		}
+		fw->Text = gcnew String("количество сравнений: " + compareCnt.ToString());
+		fw->ShowDialog();
+	}
+	else {
+		MessageBox::Show("Запись не найдена", "Уведомление");
+	}
+
 	return System::Void();
 }
 
@@ -293,23 +409,35 @@ System::Void Credit::MainWindow::DebugHT_Click(System::Object^ sender, System::E
 	return System::Void();
 }
 
-
+//[ DEBUG ]
 System::Void Credit::MainWindow::DebugAVLBankName_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	string text = viewModel.bankNameTree.print(5);
+	AVLDebugWindow^ dialog = gcnew AVLDebugWindow(text);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::DebugAVLInterestRate_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	string text = viewModel.interestRateTree.print(5);
+	AVLDebugWindow^ dialog = gcnew AVLDebugWindow(text);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::DebugAVLMaturityTime_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	string text = viewModel.maturityTimeTree.print(5);
+	AVLDebugWindow^ dialog = gcnew AVLDebugWindow(text);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::DebugAVLSum_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	string text = viewModel.sumTree.print(5);
+	AVLDebugWindow^ dialog = gcnew AVLDebugWindow(text);
+	dialog->ShowDialog();
 	return System::Void();
 }

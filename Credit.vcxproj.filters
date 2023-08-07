@@ -39,6 +39,12 @@
     <ClInclude Include="FilteredWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AVLDebugWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTDebugWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow.cpp">
@@ -60,6 +66,12 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="FilteredWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AVLDebugWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HTDebugWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

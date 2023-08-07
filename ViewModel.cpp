@@ -44,6 +44,58 @@ void ViewModel::readData(string dir, int hashTableSize)
 	fin.close();
 }
 
+vector<ViewModel::Data*> ViewModel::FindByBankName(string bankName, int& compareCnt)
+{
+	auto findRes = bankNameTree.findNode(bankName, compareCnt);
+	if (findRes != nullptr)
+	{
+		return listToVector(findRes->data);
+	}
+	else {
+		vector<Data*>emptyList;
+		return emptyList;
+	}
+}
+
+vector<ViewModel::Data*> ViewModel::FindByInterestRate(int interestRate, int& compareCnt)
+{
+	auto findRes = interestRateTree.findNode(interestRateToString(interestRate), compareCnt);
+	if (findRes != nullptr)
+	{
+		return listToVector(findRes->data);
+	}
+	else {
+		vector<Data*>emptyList;
+		return emptyList;
+	}
+}
+
+vector<ViewModel::Data*> ViewModel::FindByMaturityTime(int maturityTime, int& compareCnt)
+{
+	auto findRes = maturityTimeTree.findNode(durationToString(maturityTime), compareCnt);
+	if (findRes != nullptr)
+	{
+		return listToVector(findRes->data);
+	}
+	else {
+		vector<Data*>emptyList;
+		return emptyList;
+	}
+}
+
+vector<ViewModel::Data*> ViewModel::FindBySum(int sum, int& compareCnt)
+{
+	auto findRes = sumTree.findNode(sumToString(sum), compareCnt);
+	if (findRes != nullptr)
+	{
+		return listToVector(findRes->data);
+	}
+	else {
+		vector<Data*>emptyList;
+		return emptyList;
+	}
+}
+
 string ViewModel::durationToString(int duration)
 {
 	string dur = to_string(duration);
@@ -68,4 +120,18 @@ string ViewModel::interestRateToString(int interestRate)
 string ViewModel::sumToString(int sum)
 {
 	return to_string(sum);
+}
+
+vector<ViewModel::Data*> ViewModel::listToVector(SLLT list)
+{
+	vector<Data*>items;
+	auto tmp = list.head;
+	items.push_back(data[tmp->index]);
+	tmp = tmp->next;
+	while (tmp != list.head)
+	{
+		items.push_back(data[tmp->index]);
+		tmp = tmp->next;
+	}
+	return items;
 }

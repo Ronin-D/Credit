@@ -119,20 +119,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AVLDebugWindow.cpp" />
     <ClCompile Include="AVLT.cpp" />
     <ClCompile Include="FilteredWindow.cpp" />
     <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="HTDebugWindow.cpp" />
     <ClCompile Include="SLLT.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AVLDebugWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="AVLT.h" />
     <ClInclude Include="FilteredWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="HTDebugWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SLLT.h" />
     <ClInclude Include="MainWindow.h">
       <FileType>CppForm</FileType>
@@ -140,6 +148,15 @@
     <ClInclude Include="ViewModel.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AVLDebugWindow.resx">
+      <DependentUpon>AVLDebugWindow.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilteredWindow.resx">
+      <DependentUpon>FilteredWindow.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HTDebugWindow.resx">
+      <DependentUpon>HTDebugWindow.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.h</DependentUpon>
     </EmbeddedResource>
