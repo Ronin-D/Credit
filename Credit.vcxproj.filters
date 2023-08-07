@@ -24,13 +24,19 @@
     <ClInclude Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListNode.h">
+    <ClInclude Include="SLLT.h">
       <Filter>Header Files\DataStructers</Filter>
     </ClInclude>
-    <ClInclude Include="AVLTree.h">
+    <ClInclude Include="AVLT.h">
       <Filter>Header Files\DataStructers</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HashTable.h">
+      <Filter>Header Files\DataStructers</Filter>
+    </ClInclude>
+    <ClInclude Include="FilteredWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,14 +47,20 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListNode.cpp">
+    <ClCompile Include="SLLT.cpp">
       <Filter>Resource Files\DataStructers</Filter>
     </ClCompile>
-    <ClCompile Include="AVLTree.cpp">
+    <ClCompile Include="AVLT.cpp">
       <Filter>Resource Files\DataStructers</Filter>
     </ClCompile>
     <ClCompile Include="HashTable.cpp">
       <Filter>Resource Files\DataStructers</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilteredWindow.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -119,19 +119,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AVLTree.cpp" />
+    <ClCompile Include="AVLT.cpp" />
+    <ClCompile Include="FilteredWindow.cpp" />
     <ClCompile Include="HashTable.cpp" />
-    <ClCompile Include="ListNode.cpp" />
+    <ClCompile Include="SLLT.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AVLTree.h" />
+    <ClInclude Include="AVLT.h" />
+    <ClInclude Include="FilteredWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="HashTable.h" />
-    <ClInclude Include="ListNode.h" />
+    <ClInclude Include="SLLT.h" />
     <ClInclude Include="MainWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainWindow.resx">

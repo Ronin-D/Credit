@@ -34,17 +34,20 @@ namespace Credit {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::ListView^ BookedListView;
+	private: System::Windows::Forms::ListView^ ListView;
+	protected:
+
 	protected:
 	private: System::Windows::Forms::ColumnHeader^ ColumnPassport;
 	private: System::Windows::Forms::ColumnHeader^ ColumnBankName;
 	private: System::Windows::Forms::ColumnHeader^ ColumnInterestRate;
 	private: System::Windows::Forms::ColumnHeader^ ColumnMaturityTime;
 	private: System::Windows::Forms::ColumnHeader^ ColumnSum;
-	private: System::Windows::Forms::GroupBox^ BookedOperationList;
+	private: System::Windows::Forms::GroupBox^ OperationList;
+
 	private: System::Windows::Forms::Button^ GlobalFind;
 
-	private: System::Windows::Forms::MaskedTextBox^ pasportFindline;
+
 
 	private: System::Windows::Forms::Label^ BankNameLabel;
 	private: System::Windows::Forms::TextBox^ BankFindline;
@@ -59,13 +62,13 @@ namespace Credit {
 
 
 
-	private: System::Windows::Forms::Label^ PasportLabel;
+
 	private: System::Windows::Forms::Button^ InterestRateFind;
 	private: System::Windows::Forms::Button^ MaturityTimeFind;
 
 
 
-	private: System::Windows::Forms::Button^ PasportFind;
+
 
 	private: System::Windows::Forms::Button^ Delete;
 
@@ -89,7 +92,7 @@ namespace Credit {
 
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugBookedToolGroup;
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugBookedHT;
-	private: System::Windows::Forms::ToolStripMenuItem^ DebugAVLPassport;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugAVLBankName;
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugAVLInterestRate;
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugAVLMaturityTime;
@@ -107,7 +110,10 @@ namespace Credit {
 
 	private: System::Windows::Forms::Label^ SumLabel;
 	private: System::Windows::Forms::Button^ SumFind;
-	private: System::Windows::Forms::ToolStripMenuItem^ ‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ DebugAVLSum;
+
+
+
 
 
 
@@ -131,29 +137,26 @@ namespace Credit {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->BookedListView = (gcnew System::Windows::Forms::ListView());
+			this->ListView = (gcnew System::Windows::Forms::ListView());
 			this->ColumnPassport = (gcnew System::Windows::Forms::ColumnHeader());
 			this->ColumnBankName = (gcnew System::Windows::Forms::ColumnHeader());
 			this->ColumnInterestRate = (gcnew System::Windows::Forms::ColumnHeader());
 			this->ColumnMaturityTime = (gcnew System::Windows::Forms::ColumnHeader());
 			this->ColumnSum = (gcnew System::Windows::Forms::ColumnHeader());
-			this->BookedOperationList = (gcnew System::Windows::Forms::GroupBox());
+			this->OperationList = (gcnew System::Windows::Forms::GroupBox());
 			this->SumFindLine = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->MaturityRateFindLine = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->SumLabel = (gcnew System::Windows::Forms::Label());
 			this->SumFind = (gcnew System::Windows::Forms::Button());
 			this->InterestRateFindline = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->GlobalFind = (gcnew System::Windows::Forms::Button());
-			this->pasportFindline = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->BankNameLabel = (gcnew System::Windows::Forms::Label());
 			this->BankFindline = (gcnew System::Windows::Forms::TextBox());
 			this->BankNameFind = (gcnew System::Windows::Forms::Button());
 			this->InterestRateLabel = (gcnew System::Windows::Forms::Label());
 			this->MaturityTimeLabel = (gcnew System::Windows::Forms::Label());
-			this->PasportLabel = (gcnew System::Windows::Forms::Label());
 			this->InterestRateFind = (gcnew System::Windows::Forms::Button());
 			this->MaturityTimeFind = (gcnew System::Windows::Forms::Button());
-			this->PasportFind = (gcnew System::Windows::Forms::Button());
 			this->Delete = (gcnew System::Windows::Forms::Button());
 			this->Add = (gcnew System::Windows::Forms::Button());
 			this->TopToolMenu = (gcnew System::Windows::Forms::MenuStrip());
@@ -168,33 +171,33 @@ namespace Credit {
 			this->DebugTools = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugBookedToolGroup = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugBookedHT = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->DebugAVLPassport = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugAVLBankName = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugAVLInterestRate = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugAVLMaturityTime = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->BookedOperationList->SuspendLayout();
+			this->DebugAVLSum = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->OperationList->SuspendLayout();
 			this->TopToolMenu->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// BookedListView
+			// ListView
 			// 
-			this->BookedListView->AutoArrange = false;
-			this->BookedListView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(5) {
-				this->ColumnPassport,
-					this->ColumnBankName, this->ColumnInterestRate, this->ColumnMaturityTime, this->ColumnSum
+			this->ListView->AutoArrange = false;
+			this->ListView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(5) {
+				this->ColumnPassport, this->ColumnBankName,
+					this->ColumnInterestRate, this->ColumnMaturityTime, this->ColumnSum
 			});
-			this->BookedListView->FullRowSelect = true;
-			this->BookedListView->GridLines = true;
-			this->BookedListView->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
-			this->BookedListView->HideSelection = false;
-			this->BookedListView->Location = System::Drawing::Point(221, 63);
-			this->BookedListView->Name = L"BookedListView";
-			this->BookedListView->Size = System::Drawing::Size(1529, 777);
-			this->BookedListView->TabIndex = 3;
-			this->BookedListView->UseCompatibleStateImageBehavior = false;
-			this->BookedListView->View = System::Windows::Forms::View::Details;
-			this->BookedListView->SelectedIndexChanged += gcnew System::EventHandler(this, &MainWindow::BookedListView_SelectedIndexChanged);
+			this->ListView->FullRowSelect = true;
+			this->ListView->GridLines = true;
+			this->ListView->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->ListView->HideSelection = false;
+			this->ListView->Location = System::Drawing::Point(221, 63);
+			this->ListView->Name = L"ListView";
+			this->ListView->Size = System::Drawing::Size(1529, 777);
+			this->ListView->TabIndex = 3;
+			this->ListView->UseCompatibleStateImageBehavior = false;
+			this->ListView->View = System::Windows::Forms::View::Details;
+			this->ListView->Visible = false;
+			this->ListView->SelectedIndexChanged += gcnew System::EventHandler(this, &MainWindow::BookedListView_SelectedIndexChanged);
 			// 
 			// ColumnPassport
 			// 
@@ -221,32 +224,30 @@ namespace Credit {
 			this->ColumnSum->Text = L"—ÛÏÏ‡";
 			this->ColumnSum->Width = 100;
 			// 
-			// BookedOperationList
+			// OperationList
 			// 
-			this->BookedOperationList->Controls->Add(this->SumFindLine);
-			this->BookedOperationList->Controls->Add(this->MaturityRateFindLine);
-			this->BookedOperationList->Controls->Add(this->SumLabel);
-			this->BookedOperationList->Controls->Add(this->SumFind);
-			this->BookedOperationList->Controls->Add(this->InterestRateFindline);
-			this->BookedOperationList->Controls->Add(this->GlobalFind);
-			this->BookedOperationList->Controls->Add(this->pasportFindline);
-			this->BookedOperationList->Controls->Add(this->BankNameLabel);
-			this->BookedOperationList->Controls->Add(this->BankFindline);
-			this->BookedOperationList->Controls->Add(this->BankNameFind);
-			this->BookedOperationList->Controls->Add(this->InterestRateLabel);
-			this->BookedOperationList->Controls->Add(this->MaturityTimeLabel);
-			this->BookedOperationList->Controls->Add(this->PasportLabel);
-			this->BookedOperationList->Controls->Add(this->InterestRateFind);
-			this->BookedOperationList->Controls->Add(this->MaturityTimeFind);
-			this->BookedOperationList->Controls->Add(this->PasportFind);
-			this->BookedOperationList->Controls->Add(this->Delete);
-			this->BookedOperationList->Controls->Add(this->Add);
-			this->BookedOperationList->Location = System::Drawing::Point(12, 52);
-			this->BookedOperationList->Name = L"BookedOperationList";
-			this->BookedOperationList->Size = System::Drawing::Size(203, 806);
-			this->BookedOperationList->TabIndex = 4;
-			this->BookedOperationList->TabStop = false;
-			this->BookedOperationList->Text = L"ŒÔÂ‡ˆËË";
+			this->OperationList->Controls->Add(this->SumFindLine);
+			this->OperationList->Controls->Add(this->MaturityRateFindLine);
+			this->OperationList->Controls->Add(this->SumLabel);
+			this->OperationList->Controls->Add(this->SumFind);
+			this->OperationList->Controls->Add(this->InterestRateFindline);
+			this->OperationList->Controls->Add(this->GlobalFind);
+			this->OperationList->Controls->Add(this->BankNameLabel);
+			this->OperationList->Controls->Add(this->BankFindline);
+			this->OperationList->Controls->Add(this->BankNameFind);
+			this->OperationList->Controls->Add(this->InterestRateLabel);
+			this->OperationList->Controls->Add(this->MaturityTimeLabel);
+			this->OperationList->Controls->Add(this->InterestRateFind);
+			this->OperationList->Controls->Add(this->MaturityTimeFind);
+			this->OperationList->Controls->Add(this->Delete);
+			this->OperationList->Controls->Add(this->Add);
+			this->OperationList->Location = System::Drawing::Point(12, 52);
+			this->OperationList->Name = L"OperationList";
+			this->OperationList->Size = System::Drawing::Size(203, 806);
+			this->OperationList->TabIndex = 4;
+			this->OperationList->TabStop = false;
+			this->OperationList->Text = L"ŒÔÂ‡ˆËË";
+			this->OperationList->Visible = false;
 			// 
 			// SumFindLine
 			// 
@@ -307,15 +308,6 @@ namespace Credit {
 			this->GlobalFind->UseVisualStyleBackColor = true;
 			this->GlobalFind->Click += gcnew System::EventHandler(this, &MainWindow::GlobalFind_Click);
 			// 
-			// pasportFindline
-			// 
-			this->pasportFindline->Location = System::Drawing::Point(6, 243);
-			this->pasportFindline->Mask = L"0000 000000";
-			this->pasportFindline->Name = L"pasportFindline";
-			this->pasportFindline->ResetOnPrompt = false;
-			this->pasportFindline->Size = System::Drawing::Size(193, 26);
-			this->pasportFindline->TabIndex = 15;
-			// 
 			// BankNameLabel
 			// 
 			this->BankNameLabel->AutoSize = true;
@@ -364,16 +356,6 @@ namespace Credit {
 			this->MaturityTimeLabel->TabIndex = 9;
 			this->MaturityTimeLabel->Text = L"—ÓÍ ÔÓ„‡¯ÂÌËˇ";
 			// 
-			// PasportLabel
-			// 
-			this->PasportLabel->AutoSize = true;
-			this->PasportLabel->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->PasportLabel->Location = System::Drawing::Point(6, 216);
-			this->PasportLabel->Name = L"PasportLabel";
-			this->PasportLabel->Size = System::Drawing::Size(74, 20);
-			this->PasportLabel->TabIndex = 7;
-			this->PasportLabel->Text = L"œ‡ÒÔÓÚ";
-			// 
 			// InterestRateFind
 			// 
 			this->InterestRateFind->ImeMode = System::Windows::Forms::ImeMode::NoControl;
@@ -395,17 +377,6 @@ namespace Credit {
 			this->MaturityTimeFind->Text = L"œÓËÒÍ";
 			this->MaturityTimeFind->UseVisualStyleBackColor = true;
 			this->MaturityTimeFind->Click += gcnew System::EventHandler(this, &MainWindow::MaturityTimeFind_Click);
-			// 
-			// PasportFind
-			// 
-			this->PasportFind->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->PasportFind->Location = System::Drawing::Point(5, 273);
-			this->PasportFind->Name = L"PasportFind";
-			this->PasportFind->Size = System::Drawing::Size(193, 51);
-			this->PasportFind->TabIndex = 3;
-			this->PasportFind->Text = L"œÓËÒÍ";
-			this->PasportFind->UseVisualStyleBackColor = true;
-			this->PasportFind->Click += gcnew System::EventHandler(this, &MainWindow::PasportFind_Click);
 			// 
 			// Delete
 			// 
@@ -452,41 +423,41 @@ namespace Credit {
 					this->CloseTool, this->SaveTool, this->SaveAsTool, this->ExitTool
 			});
 			this->ProgrammTools->Name = L"ProgrammTools";
-			this->ProgrammTools->Size = System::Drawing::Size(125, 32);
+			this->ProgrammTools->Size = System::Drawing::Size(125, 29);
 			this->ProgrammTools->Text = L"œÓ„‡ÏÏ‡";
 			// 
 			// OpenTool
 			// 
 			this->OpenTool->Name = L"OpenTool";
-			this->OpenTool->Size = System::Drawing::Size(270, 34);
+			this->OpenTool->Size = System::Drawing::Size(244, 34);
 			this->OpenTool->Text = L"ŒÚÍ˚Ú¸";
 			this->OpenTool->Click += gcnew System::EventHandler(this, &MainWindow::OpenTool_Click);
 			// 
 			// CloseTool
 			// 
 			this->CloseTool->Name = L"CloseTool";
-			this->CloseTool->Size = System::Drawing::Size(270, 34);
+			this->CloseTool->Size = System::Drawing::Size(244, 34);
 			this->CloseTool->Text = L"«‡Í˚Ú¸";
 			this->CloseTool->Click += gcnew System::EventHandler(this, &MainWindow::CloseTool_Click);
 			// 
 			// SaveTool
 			// 
 			this->SaveTool->Name = L"SaveTool";
-			this->SaveTool->Size = System::Drawing::Size(270, 34);
+			this->SaveTool->Size = System::Drawing::Size(244, 34);
 			this->SaveTool->Text = L"—Óı‡ÌËÚ¸";
 			this->SaveTool->Click += gcnew System::EventHandler(this, &MainWindow::SaveTool_Click);
 			// 
 			// SaveAsTool
 			// 
 			this->SaveAsTool->Name = L"SaveAsTool";
-			this->SaveAsTool->Size = System::Drawing::Size(270, 34);
+			this->SaveAsTool->Size = System::Drawing::Size(244, 34);
 			this->SaveAsTool->Text = L"—Óı‡ÌËÚ¸ Í‡Í...";
 			this->SaveAsTool->Click += gcnew System::EventHandler(this, &MainWindow::SaveAsTool_Click);
 			// 
 			// ExitTool
 			// 
 			this->ExitTool->Name = L"ExitTool";
-			this->ExitTool->Size = System::Drawing::Size(270, 34);
+			this->ExitTool->Size = System::Drawing::Size(244, 34);
 			this->ExitTool->Text = L"¬˚ıÓ‰";
 			this->ExitTool->Click += gcnew System::EventHandler(this, &MainWindow::ExitTool_Click);
 			// 
@@ -494,14 +465,14 @@ namespace Credit {
 			// 
 			this->ReferenceTools->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->AboutTool });
 			this->ReferenceTools->Name = L"ReferenceTools";
-			this->ReferenceTools->Size = System::Drawing::Size(97, 32);
+			this->ReferenceTools->Size = System::Drawing::Size(97, 29);
 			this->ReferenceTools->Text = L"—Ô‡‚Í‡";
 			this->ReferenceTools->Click += gcnew System::EventHandler(this, &MainWindow::ReferenceTools_Click);
 			// 
 			// AboutTool
 			// 
 			this->AboutTool->Name = L"AboutTool";
-			this->AboutTool->Size = System::Drawing::Size(270, 34);
+			this->AboutTool->Size = System::Drawing::Size(227, 34);
 			this->AboutTool->Text = L"Œ ÔÓ„‡ÏÏÂ";
 			this->AboutTool->Click += gcnew System::EventHandler(this, &MainWindow::AboutTool_Click);
 			// 
@@ -514,13 +485,13 @@ namespace Credit {
 			// 
 			// DebugBookedToolGroup
 			// 
-			this->DebugBookedToolGroup->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
+			this->DebugBookedToolGroup->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
 				this->DebugBookedHT,
-					this->DebugAVLPassport, this->DebugAVLBankName, this->DebugAVLInterestRate, this->DebugAVLMaturityTime, this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem
+					this->DebugAVLBankName, this->DebugAVLInterestRate, this->DebugAVLMaturityTime, this->DebugAVLSum
 			});
 			this->DebugBookedToolGroup->Name = L"DebugBookedToolGroup";
-			this->DebugBookedToolGroup->Size = System::Drawing::Size(504, 34);
-			this->DebugBookedToolGroup->Text = L"—Ô‡‚Ó˜ÌËÍ \"«‡·ÓÌËÓ‚‡ÌÌ˚Â ÔÂ‰ÎÓÊÂÌËˇ\"";
+			this->DebugBookedToolGroup->Size = System::Drawing::Size(304, 34);
+			this->DebugBookedToolGroup->Text = L"—Ô‡‚Ó˜ÌËÍ \" Â‰ËÚ˚\"";
 			// 
 			// DebugBookedHT
 			// 
@@ -528,13 +499,6 @@ namespace Credit {
 			this->DebugBookedHT->Size = System::Drawing::Size(387, 34);
 			this->DebugBookedHT->Text = L"’Â¯-Ú‡·ÎËˆ‡";
 			this->DebugBookedHT->Click += gcnew System::EventHandler(this, &MainWindow::DebugHT_Click);
-			// 
-			// DebugAVLPassport
-			// 
-			this->DebugAVLPassport->Name = L"DebugAVLPassport";
-			this->DebugAVLPassport->Size = System::Drawing::Size(387, 34);
-			this->DebugAVLPassport->Text = L"¿¬À-‰ÂÂ‚Ó (œ‡ÒÒÔÓÚ)";
-			this->DebugAVLPassport->Click += gcnew System::EventHandler(this, &MainWindow::DebugAVLPassport_Click);
 			// 
 			// DebugAVLBankName
 			// 
@@ -557,12 +521,12 @@ namespace Credit {
 			this->DebugAVLMaturityTime->Text = L"¿¬À-‰ÂÂ‚Ó (—ÓÍ ÔÓ„‡¯ÂÌËˇ)";
 			this->DebugAVLMaturityTime->Click += gcnew System::EventHandler(this, &MainWindow::DebugAVLMaturityTime_Click);
 			// 
-			// ‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem
+			// DebugAVLSum
 			// 
-			this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem->Name = L"‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem";
-			this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem->Size = System::Drawing::Size(387, 34);
-			this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem->Text = L"¿¬À-‰ÂÂ‚Ó (—ÛÏÏ‡)";
-			this->‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainWindow::‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem_Click);
+			this->DebugAVLSum->Name = L"DebugAVLSum";
+			this->DebugAVLSum->Size = System::Drawing::Size(387, 34);
+			this->DebugAVLSum->Text = L"¿¬À-‰ÂÂ‚Ó (—ÛÏÏ‡)";
+			this->DebugAVLSum->Click += gcnew System::EventHandler(this, &MainWindow::DebugAVLSum_Click);
 			// 
 			// MainWindow
 			// 
@@ -570,13 +534,13 @@ namespace Credit {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1762, 858);
 			this->Controls->Add(this->TopToolMenu);
-			this->Controls->Add(this->BookedOperationList);
-			this->Controls->Add(this->BookedListView);
+			this->Controls->Add(this->OperationList);
+			this->Controls->Add(this->ListView);
 			this->Name = L"MainWindow";
 			this->Text = L"MainWindow";
 			this->Load += gcnew System::EventHandler(this, &MainWindow::MainWindow_Load);
-			this->BookedOperationList->ResumeLayout(false);
-			this->BookedOperationList->PerformLayout();
+			this->OperationList->ResumeLayout(false);
+			this->OperationList->PerformLayout();
 			this->TopToolMenu->ResumeLayout(false);
 			this->TopToolMenu->PerformLayout();
 			this->ResumeLayout(false);
@@ -591,48 +555,25 @@ namespace Credit {
 	private: System::Void BookedListView_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 
-private: System::Void Add_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void Delete_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void GlobalFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void PasportFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void BankNameFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void InterestRateFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void MaturityTimeFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void SumFind_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void OpenTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void CloseTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void SaveTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void SaveAsTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void ExitTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void ReferenceTools_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void AboutTool_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+private: System::Void Add_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void Delete_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void GlobalFind_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void BankNameFind_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void InterestRateFind_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void MaturityTimeFind_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void SumFind_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void OpenTool_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void CloseTool_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void SaveTool_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void SaveAsTool_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void ExitTool_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void ReferenceTools_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void AboutTool_Click(System::Object^ sender, System::EventArgs^ e);
 
-private: System::Void DebugHT_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void DebugAVLPassport_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void DebugAVLBankName_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void DebugAVLInterestRate_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void DebugAVLMaturityTime_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void ‡¬À‰ÂÂ‚Ó—ÛÏÏ‡ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+private: System::Void DebugHT_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void DebugAVLBankName_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void DebugAVLInterestRate_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void DebugAVLMaturityTime_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void DebugAVLSum_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
