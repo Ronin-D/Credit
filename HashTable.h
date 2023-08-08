@@ -1,27 +1,40 @@
-//#pragma once
-//
-//class HashTable
-//{
-//private:
-//    Data* table;
-//    bool* status;
-//    unsigned int size;
-//    int MyK;
-//
-//public:
-//
-//    int HashTable::getSize() { return size; }
-//    int HashTable::getMyK() { return MyK; }
-//    HashTable(unsigned int _size);
-//
-//    int hashFunction(Data key);
-//    int ReHash2(int stp, int index);
-//    int ResolveColl(Data key, int hash);
-//    void Add2(Data key);
-//    void Print();
-//    int ResolveCollforDel(Data key, int hash);
-//    void Delete(Data key);
-//    int Find2(Data key);
-//
-//    void changeLastIndex(Data key, int delIndex);
-//};
+#pragma once
+#include<vector>
+#include<string>
+using namespace std;
+
+
+
+class HashTable
+{
+
+public:
+
+	struct Data
+	{
+		int index;
+		int series;
+		int number;
+		std::string bankName;
+		int interestRate;
+		int duration;
+		int sum;
+	};
+
+	HashTable(int size);
+	~HashTable();
+	void put(Data* data);
+	//string print();
+	void remove(Data* data);
+	int find(Data* bookedOffer);
+	void changeLastIndex(Data* lastElem, int delIndex);
+	pair<int, Data*>* table;
+	void erase();
+	int size = -1;
+	int hashFun(Data* data);
+	int resolveCollishion(int hash, int j, int k);
+private:
+	bool compareCredits(Data* data1, Data* data2);
+	pair <int, int>findToRemove(Data* data);
+};
+

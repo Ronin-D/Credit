@@ -2,6 +2,7 @@
 #include<iostream>
 namespace Credit {
 
+	using namespace std;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -15,6 +16,8 @@ namespace Credit {
 	public ref class MainWindow : public System::Windows::Forms::Form
 	{
 	public:
+		int loaded = 0;
+		int HTStartSize = -1;
 		MainWindow(void)
 		{
 			InitializeComponent();
@@ -81,8 +84,8 @@ namespace Credit {
 	private: System::Windows::Forms::ToolStripMenuItem^ SaveTool;
 	private: System::Windows::Forms::ToolStripMenuItem^ SaveAsTool;
 	private: System::Windows::Forms::ToolStripMenuItem^ ExitTool;
-	private: System::Windows::Forms::ToolStripMenuItem^ ReferenceTools;
-	private: System::Windows::Forms::ToolStripMenuItem^ AboutTool;
+
+
 	private: System::Windows::Forms::ToolStripMenuItem^ DebugTools;
 
 
@@ -166,8 +169,6 @@ namespace Credit {
 			this->SaveTool = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->SaveAsTool = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ExitTool = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->ReferenceTools = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->AboutTool = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugTools = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugBookedToolGroup = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->DebugBookedHT = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -405,10 +406,7 @@ namespace Credit {
 			this->TopToolMenu->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->TopToolMenu->GripMargin = System::Windows::Forms::Padding(2, 2, 0, 2);
 			this->TopToolMenu->ImageScalingSize = System::Drawing::Size(28, 28);
-			this->TopToolMenu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-				this->ProgrammTools, this->ReferenceTools,
-					this->DebugTools
-			});
+			this->TopToolMenu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->ProgrammTools, this->DebugTools });
 			this->TopToolMenu->Location = System::Drawing::Point(0, 0);
 			this->TopToolMenu->Name = L"TopToolMenu";
 			this->TopToolMenu->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
@@ -460,21 +458,6 @@ namespace Credit {
 			this->ExitTool->Size = System::Drawing::Size(244, 34);
 			this->ExitTool->Text = L"Выход";
 			this->ExitTool->Click += gcnew System::EventHandler(this, &MainWindow::ExitTool_Click);
-			// 
-			// ReferenceTools
-			// 
-			this->ReferenceTools->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->AboutTool });
-			this->ReferenceTools->Name = L"ReferenceTools";
-			this->ReferenceTools->Size = System::Drawing::Size(97, 29);
-			this->ReferenceTools->Text = L"Справка";
-			this->ReferenceTools->Click += gcnew System::EventHandler(this, &MainWindow::ReferenceTools_Click);
-			// 
-			// AboutTool
-			// 
-			this->AboutTool->Name = L"AboutTool";
-			this->AboutTool->Size = System::Drawing::Size(227, 34);
-			this->AboutTool->Text = L"О программе";
-			this->AboutTool->Click += gcnew System::EventHandler(this, &MainWindow::AboutTool_Click);
 			// 
 			// DebugTools
 			// 
@@ -548,8 +531,7 @@ namespace Credit {
 
 		}
 #pragma endregion
-	private: System::Void MainWindow_Load(System::Object^ sender, System::EventArgs^ e) {
-	}
+	private: System::Void MainWindow_Load(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void listView1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void BookedListView_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -568,7 +550,8 @@ private: System::Void SaveTool_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void SaveAsTool_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void ExitTool_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void ReferenceTools_Click(System::Object^ sender, System::EventArgs^ e);
-private: System::Void AboutTool_Click(System::Object^ sender, System::EventArgs^ e);
+public: System::Void  AddItem(int series, int number, string bankName, int interestRate, int duration, int sum);
+
 
 private: System::Void DebugHT_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void DebugAVLBankName_Click(System::Object^ sender, System::EventArgs^ e);

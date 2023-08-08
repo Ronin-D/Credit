@@ -119,9 +119,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddDialog.cpp" />
     <ClCompile Include="AVLDebugWindow.cpp" />
     <ClCompile Include="AVLT.cpp" />
+    <ClCompile Include="DeleteDialog.cpp" />
     <ClCompile Include="FilteredWindow.cpp" />
+    <ClCompile Include="GlobalFindDialog.cpp" />
+    <ClCompile Include="GreetingWindow.cpp" />
     <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="HTDebugWindow.cpp" />
     <ClCompile Include="SLLT.cpp" />
@@ -130,11 +134,24 @@
     <ClCompile Include="ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="AVLDebugWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="AVLT.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="DeleteDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="FilteredWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GlobalFindDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GreetingWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="HashTable.h" />
@@ -148,11 +165,17 @@
     <ClInclude Include="ViewModel.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddDialog.resx">
+      <DependentUpon>AddDialog.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AVLDebugWindow.resx">
       <DependentUpon>AVLDebugWindow.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilteredWindow.resx">
       <DependentUpon>FilteredWindow.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GreetingWindow.resx">
+      <DependentUpon>GreetingWindow.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HTDebugWindow.resx">
       <DependentUpon>HTDebugWindow.h</DependentUpon>

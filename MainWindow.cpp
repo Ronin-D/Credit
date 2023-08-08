@@ -4,6 +4,10 @@
 #include"FilteredWindow.h"
 #include"AVLDebugWindow.h"
 #include"HTDebugWindow.h"
+#include"GreetingWindow.h"
+#include"AddDialog.h"
+#include"GlobalFindDialog.h"
+#include"DeleteDialog.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -19,14 +23,33 @@ void clearDatafields()
 	viewModel.maturityTimeTree.erase();
 	viewModel.sumTree.erase();
 
-	/*if (BookedDatafields.hashTable != nullptr)
+	if (viewModel.hashTable != nullptr)
 	{
-		BookedDatafields.hashTable->erase();
-	}*/
+		viewModel.hashTable->erase();
+	}
+}
+
+System::Void Credit::MainWindow::MainWindow_Load(System::Object^ sender, System::EventArgs^ e)
+{
+	GreetingWindow^ greetingDialog = gcnew GreetingWindow(this);
+	greetingDialog->ShowDialog();
+	if (HTStartSize == -1)
+	{
+		HTStartSize = -1;
+		MessageBox::Show("Размеры хеш-таблиц не указаны или указаны некорректно.", "ОШИБКА", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		Application::Exit();
+
+		return System::Void();
+
+	}
+
+	return System::Void();
 }
 
 System::Void Credit::MainWindow::Add_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	AddDialog^ dialog = gcnew AddDialog(this);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
@@ -203,9 +226,8 @@ System::Void Credit::MainWindow::OpenTool_Click(System::Object^ sender, System::
 		this->OperationList->Visible = true;// визуализирует поле со вкладками и инструментами
 
 
-		/*OffersListView->Items->Clear();
-		clearOffersDatafields();*/
-
+		ListView->Items->Clear();
+		clearDatafields();
 
 		msclr::interop::marshal_context context;
 
@@ -213,7 +235,7 @@ System::Void Credit::MainWindow::OpenTool_Click(System::Object^ sender, System::
 
 		viewModel.path = context.marshal_as<std::string>(OpenOffers.FileName);
 
-		 viewModel.readData(viewModel.path, 10);
+		 viewModel.readData(viewModel.path, HTStartSize);
 		for (size_t i = 0; i <viewModel.data.size(); i++)
 		{
 			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(viewModel.data[i]->series.ToString()+" "+viewModel.data[i]->number.ToString()));
@@ -284,7 +306,6 @@ System::Void Credit::MainWindow::SaveTool_Click(System::Object^ sender, System::
 				<< viewModel.data[i]->duration
 				<< "."
 				<< viewModel.data[i]->sum
-				<< "."
 				<< endl;
 		}
 		WriteOffers.close();
@@ -358,7 +379,6 @@ System::Void Credit::MainWindow::SaveAsTool_Click(System::Object^ sender, System
 				<< viewModel.data[i]->duration
 				<< "."
 				<< viewModel.data[i]->sum
-				<< "."
 				<< endl;
 		}
 		WriteOffers.close();
@@ -399,13 +419,87 @@ System::Void Credit::MainWindow::ReferenceTools_Click(System::Object^ sender, Sy
 	return System::Void();
 }
 
-System::Void Credit::MainWindow::AboutTool_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void Credit::MainWindow::AddItem(int series, int number, string bankName, int interestRate, int duration, int sum)
 {
+	if (viewModel.data.size() < HTStartSize)
+	{
+		HashTable::Data* credit = new HashTable::Data();
+		
+		credit->bankName = bankName;
+		credit->series = series;
+		credit->interestRate = interestRate;
+		credit->number = number;
+		credit->duration = duration;
+		credit->sum = sum;
+		credit->index = viewModel.data.size() - 1;
+
+		if (viewModel.hashTable->find(credit) == -1)
+		{
+			viewModel.data.push_back(credit);
+			viewModel.bankNameTree.addNewNode(bankName, credit->index);
+			viewModel.interestRateTree.addNewNode(viewModel.interestRateToString(credit->interestRate), credit->index);
+			viewModel.maturityTimeTree.addNewNode(viewModel.durationToString(credit->duration), credit->index);
+			viewModel.sumTree.addNewNode(viewModel.sumToString(credit->sum), credit->index);
+
+			viewModel.hashTable->put(credit);
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(series.ToString() + " " + number.ToString()));
+			lvi->SubItems->Add(gcnew String(bankName.c_str()));
+			lvi->SubItems->Add(gcnew String((interestRate.ToString())));
+			lvi->SubItems->Add(gcnew String((duration.ToString())));
+			lvi->SubItems->Add(gcnew String((sum.ToString())));
+
+			ListView->Items->Add(lvi);
+		}
+		else {
+			MessageBox::Show("Элемент уже есть в таблице", "Уведомление");
+		}
+	}
+	else {
+		MessageBox::Show("Таблица переполненна", "Уведомление");
+	}
+
 	return System::Void();
 }
 
+
 System::Void Credit::MainWindow::DebugHT_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	HTDebugWindow^ htdw = gcnew HTDebugWindow();
+
+	if (viewModel.hashTable != nullptr)
+	{
+		int i = 0;
+		for (size_t i = 0; i < viewModel.hashTable->size; i++)
+		{
+			auto elem = viewModel.hashTable->table[i];
+
+			ListViewItem^ lvi = gcnew ListViewItem(gcnew String(to_string(i).c_str()));
+			lvi->Text = gcnew String(i.ToString());
+			lvi->SubItems->Add(gcnew String(elem.first.ToString()));
+
+			if (viewModel.hashTable->table[i].first != 0)
+			{
+				lvi->SubItems->Add(gcnew String((viewModel.hashTable->hashFun(elem.second).ToString())));
+				lvi->SubItems->Add(gcnew String(to_string(elem.second->index).c_str()));
+				string val = to_string(elem.second->series) + "." + to_string(elem.second->number) +
+					"." + elem.second->bankName + "." + to_string(elem.second->interestRate) + "."
+					+ to_string(elem.second->duration) + "." + to_string(elem.second->sum);
+				lvi->SubItems->Add(gcnew String(val.c_str()));
+
+			}
+			else
+			{
+				string emptstr = "";
+				lvi->SubItems->Add(gcnew String(emptstr.c_str()));
+				lvi->SubItems->Add(gcnew String(emptstr.c_str()));
+				lvi->SubItems->Add(gcnew String(emptstr.c_str()));
+			}
+			htdw->HTListView->Items->Add(lvi);
+		}
+	}
+
+	htdw->ShowDialog();
 	return System::Void();
 }
 

@@ -6,10 +6,10 @@ void ViewModel::readData(string dir, int hashTableSize)
 	ifstream fin;
 	fin.open(dir);
 	string s;
-	//hashTable = new HashTable(hashTableSize);
+	hashTable = new HashTable(hashTableSize);
 	while (getline(fin, s))
 	{
-		Data *credit = new Data();
+		HashTable::Data *credit = new HashTable::Data();
 		size_t pos = 0;
 		vector<string>split;
 		while ((pos = s.find('.')) != std::string::npos) {
@@ -33,7 +33,7 @@ void ViewModel::readData(string dir, int hashTableSize)
 			maturityTimeTree.addNewNode(durationToString(credit->duration), credit->index);
 			sumTree.addNewNode(sumToString(credit->sum), credit->index);
 
-			//hashTable->Add2(credit);
+			hashTable->put(credit);
 		}
 		else
 		{
@@ -44,7 +44,7 @@ void ViewModel::readData(string dir, int hashTableSize)
 	fin.close();
 }
 
-vector<ViewModel::Data*> ViewModel::FindByBankName(string bankName, int& compareCnt)
+vector<HashTable::Data*> ViewModel::FindByBankName(string bankName, int& compareCnt)
 {
 	auto findRes = bankNameTree.findNode(bankName, compareCnt);
 	if (findRes != nullptr)
@@ -52,12 +52,12 @@ vector<ViewModel::Data*> ViewModel::FindByBankName(string bankName, int& compare
 		return listToVector(findRes->data);
 	}
 	else {
-		vector<Data*>emptyList;
+		vector<HashTable::Data*>emptyList;
 		return emptyList;
 	}
 }
 
-vector<ViewModel::Data*> ViewModel::FindByInterestRate(int interestRate, int& compareCnt)
+vector<HashTable::Data*> ViewModel::FindByInterestRate(int interestRate, int& compareCnt)
 {
 	auto findRes = interestRateTree.findNode(interestRateToString(interestRate), compareCnt);
 	if (findRes != nullptr)
@@ -65,12 +65,12 @@ vector<ViewModel::Data*> ViewModel::FindByInterestRate(int interestRate, int& co
 		return listToVector(findRes->data);
 	}
 	else {
-		vector<Data*>emptyList;
+		vector<HashTable::Data*>emptyList;
 		return emptyList;
 	}
 }
 
-vector<ViewModel::Data*> ViewModel::FindByMaturityTime(int maturityTime, int& compareCnt)
+vector<HashTable::Data*> ViewModel::FindByMaturityTime(int maturityTime, int& compareCnt)
 {
 	auto findRes = maturityTimeTree.findNode(durationToString(maturityTime), compareCnt);
 	if (findRes != nullptr)
@@ -78,12 +78,12 @@ vector<ViewModel::Data*> ViewModel::FindByMaturityTime(int maturityTime, int& co
 		return listToVector(findRes->data);
 	}
 	else {
-		vector<Data*>emptyList;
+		vector<HashTable::Data*>emptyList;
 		return emptyList;
 	}
 }
 
-vector<ViewModel::Data*> ViewModel::FindBySum(int sum, int& compareCnt)
+vector<HashTable::Data*> ViewModel::FindBySum(int sum, int& compareCnt)
 {
 	auto findRes = sumTree.findNode(sumToString(sum), compareCnt);
 	if (findRes != nullptr)
@@ -91,7 +91,7 @@ vector<ViewModel::Data*> ViewModel::FindBySum(int sum, int& compareCnt)
 		return listToVector(findRes->data);
 	}
 	else {
-		vector<Data*>emptyList;
+		vector<HashTable::Data*>emptyList;
 		return emptyList;
 	}
 }
@@ -122,9 +122,9 @@ string ViewModel::sumToString(int sum)
 	return to_string(sum);
 }
 
-vector<ViewModel::Data*> ViewModel::listToVector(SLLT list)
+vector<HashTable::Data*> ViewModel::listToVector(SLLT list)
 {
-	vector<Data*>items;
+	vector<HashTable::Data*>items;
 	auto tmp = list.head;
 	items.push_back(data[tmp->index]);
 	tmp = tmp->next;
