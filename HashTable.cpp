@@ -197,8 +197,7 @@ bool HashTable::compareCredits(Data* data1, Data* data2)
         );*/
         (data1->bankName == data2->bankName &&
             data1->series == data2->series &&
-            data1->number == data2->number 
-            );
+            data1->number == data2->number);
 }
 
 pair<int, int> HashTable::findToRemove(Data* data)

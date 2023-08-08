@@ -171,8 +171,14 @@
     <EmbeddedResource Include="AVLDebugWindow.resx">
       <DependentUpon>AVLDebugWindow.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeleteDialog.resx">
+      <DependentUpon>DeleteDialog.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilteredWindow.resx">
       <DependentUpon>FilteredWindow.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalFindDialog.resx">
+      <DependentUpon>GlobalFindDialog.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GreetingWindow.resx">
       <DependentUpon>GreetingWindow.h</DependentUpon>

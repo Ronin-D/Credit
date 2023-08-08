@@ -550,8 +550,9 @@ private: System::Void SaveTool_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void SaveAsTool_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void ExitTool_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void ReferenceTools_Click(System::Object^ sender, System::EventArgs^ e);
-public: System::Void  AddItem(int series, int number, string bankName, int interestRate, int duration, int sum);
-
+public: System::Void AddItem(int series, int number, string bankName, int interestRate, int duration, int sum);
+public: System::Void DeleteItem(int series, int number, string bankName);
+public: System::Void GlobalFindItem(int series, int number, string bankName);
 
 private: System::Void DebugHT_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void DebugAVLBankName_Click(System::Object^ sender, System::EventArgs^ e);

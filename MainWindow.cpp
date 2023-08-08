@@ -55,11 +55,15 @@ System::Void Credit::MainWindow::Add_Click(System::Object^ sender, System::Event
 
 System::Void Credit::MainWindow::Delete_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	DeleteDialog^ dialog = gcnew DeleteDialog(this);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
 System::Void Credit::MainWindow::GlobalFind_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	GlobalFindDialog^ dialog = gcnew GlobalFindDialog(this);
+	dialog->ShowDialog();
 	return System::Void();
 }
 
@@ -431,7 +435,7 @@ System::Void Credit::MainWindow::AddItem(int series, int number, string bankName
 		credit->number = number;
 		credit->duration = duration;
 		credit->sum = sum;
-		credit->index = viewModel.data.size() - 1;
+		credit->index = viewModel.data.size();
 
 		if (viewModel.hashTable->find(credit) == -1)
 		{
@@ -459,6 +463,114 @@ System::Void Credit::MainWindow::AddItem(int series, int number, string bankName
 		MessageBox::Show("Таблица переполненна", "Уведомление");
 	}
 
+	return System::Void();
+}
+
+System::Void Credit::MainWindow::DeleteItem(int series, int number, string bankName)
+{
+	HashTable::Data* credit = new HashTable::Data();
+
+	credit->bankName = bankName;
+	credit->series = series;
+	credit->number = number;
+	int findRes = viewModel.hashTable->find(credit);
+	if (findRes != -1)
+	{
+		/*BookedData::Data::BookedOffer* item = new BookedData::Data::BookedOffer();
+		item->company = company;
+		item->specialization = specialization;
+		item->vacancy = vacancy;
+		item->passport.series = series;
+		item->passport.number = number;*/
+
+		auto deleteItem = viewModel.hashTable->table[findRes].second;
+
+		//BookedDatafields.data.erase(BookedDatafields.data.begin()+deleteItem->index);
+		//swap
+
+		auto tmp = viewModel.data.back();
+		viewModel.data[viewModel.data.size() - 1] = viewModel.data[deleteItem->index];
+		viewModel.data[deleteItem->index] = tmp;
+
+
+		viewModel.bankNameTree.deleteNode(deleteItem->bankName, deleteItem->index);
+		viewModel.interestRateTree.deleteNode(viewModel.interestRateToString(deleteItem->interestRate), deleteItem->index);
+		viewModel.maturityTimeTree.deleteNode(viewModel.durationToString(deleteItem->duration), deleteItem->index);
+		viewModel.sumTree.deleteNode(viewModel.sumToString(deleteItem->sum), deleteItem->index);
+
+		viewModel.bankNameTree.changeLastIndex(tmp->bankName,
+			viewModel.data.size() - 1, deleteItem->index);
+		viewModel.interestRateTree.changeLastIndex(viewModel.interestRateToString(deleteItem->interestRate),
+			viewModel.data.size() - 1, deleteItem->index);
+		viewModel.maturityTimeTree.changeLastIndex(viewModel.durationToString(deleteItem->duration),
+			viewModel.data.size() - 1, deleteItem->index);
+		viewModel.sumTree.changeLastIndex(viewModel.sumToString(deleteItem->sum),
+			viewModel.data.size() - 1, deleteItem->index);
+
+		//перестроить таблицу
+		auto temp1 = ListView->Items[deleteItem->index];
+		ListView->Items->Remove(temp1);
+
+		int cnt = ListView->Items->Count - 1;
+		if (cnt > 0)
+		{
+			auto temp2 = ListView->Items[ListView->Items->Count - 1];
+			ListView->Items->Remove(temp2);
+			if (deleteItem->index > cnt)
+			{
+				deleteItem->index--;
+			}
+			ListView->Items->Insert(deleteItem->index, temp2);
+			ListView->Items[deleteItem->index] = temp2;
+		}
+
+	/*	SHT::HTBookedOffer* htItemLast = new SHT::HTBookedOffer();
+		htItemLast->company = tmp->company;
+		htItemLast->specialization = tmp->specialization;
+		htItemLast->vacancy = tmp->vacancy;
+		htItemLast->passport.series = tmp->passport.series;
+		htItemLast->passport.number = tmp->passport.number;*/
+
+		int save = deleteItem->index;
+		viewModel.hashTable->changeLastIndex(tmp, save);
+		viewModel.hashTable->remove(credit);
+
+		viewModel.data.pop_back();
+
+	}
+	else {
+		MessageBox::Show("Запись не найдена", "Уведомление");
+	}
+
+	return System::Void();
+}
+
+System::Void Credit::MainWindow::GlobalFindItem(int series, int number, string bankName)
+{
+	msclr::interop::marshal_context context;
+	FilteredWindow^ fw = gcnew FilteredWindow();
+	HashTable::Data* credit = new HashTable::Data();
+
+	credit->bankName = bankName;
+	credit->series = series;
+	credit->number = number;
+	int index = viewModel.hashTable->find(credit);
+	if (index != -1)
+	{
+		auto item = viewModel.hashTable->table[index].second;
+
+		ListViewItem^ lvi = gcnew ListViewItem(gcnew String(series.ToString() + " " + number.ToString()));
+		lvi->SubItems->Add(gcnew String(bankName.c_str()));
+		lvi->SubItems->Add(gcnew String((item->interestRate.ToString())));
+		lvi->SubItems->Add(gcnew String((item->duration.ToString())));
+		lvi->SubItems->Add(gcnew String((item->sum.ToString())));
+
+		fw->ListView->Items->Add(lvi);
+		fw->ShowDialog();
+	}
+	else {
+		MessageBox::Show("Элемент не найден", "Уведомление");
+	}
 	return System::Void();
 }
 

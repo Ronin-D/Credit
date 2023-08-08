@@ -194,6 +194,7 @@ namespace Credit {
 			this->Controls->Add(this->PasportLabel);
 			this->Name = L"AddDialog";
 			this->Text = L"AddDialog";
+			this->Load += gcnew System::EventHandler(this, &AddDialog::AddDialog_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -202,5 +203,7 @@ namespace Credit {
 	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 private: System::Void confirmButton_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void AddDialog_Load(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
