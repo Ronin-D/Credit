@@ -309,8 +309,7 @@ System::Void Credit::MainWindow::SaveTool_Click(System::Object^ sender, System::
 				<< "."
 				<< viewModel.data[i]->duration
 				<< "."
-				<< viewModel.data[i]->sum
-				<< endl;
+				<< viewModel.data[i]->sum;
 		}
 		WriteOffers.close();
 
@@ -382,8 +381,7 @@ System::Void Credit::MainWindow::SaveAsTool_Click(System::Object^ sender, System
 				<< "."
 				<< viewModel.data[i]->duration
 				<< "."
-				<< viewModel.data[i]->sum
-				<< endl;
+				<< viewModel.data[i]->sum;
 		}
 		WriteOffers.close();
 
